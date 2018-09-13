@@ -263,59 +263,6 @@ namespace SubSonic.Sugar
             return links;
         }
 
-        /// <summary>
-        /// Calls the Gravatar service to and returns an HTML <img></img> tag for use on your pages.
-        /// </summary>
-        /// <param name="email">The email of the user</param>
-        /// <param name="size">The size of the Gravatar image - 60 is standard</param>
-        /// <returns>HTML image tag</returns>
-        public static string GetGravatar(string email, int size)
-        {
-            MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] result = md5.ComputeHash(Encoding.ASCII.GetBytes(email));
-
-            StringBuilder hash = new StringBuilder();
-            for(int i = 0; i < result.Length; i++)
-                hash.Append(result[i].ToString("x2"));
-
-            StringBuilder image = new StringBuilder();
-            image.Append("<img src=\"");
-            image.Append("http://www.gravatar.com/avatar.php?");
-            image.Append("gravatar_id=" + hash);
-            image.Append("&amp;rating=G");
-            image.Append("&amp;size=" + size);
-            image.Append("&amp;default=");
-            image.Append(HttpContext.Current.Server.UrlEncode("http://example.com/noavatar.gif"));
-            image.Append("\" alt=\"\" />");
-            return image.ToString();
-        }
-
-        /// <summary>
-        /// Given a valid email address, returns a short javascript block that will emit a valid
-        /// mailto: link that can't be picked up by address harvesters. Call this method where you
-        /// would normally place the link in your html code.
-        /// </summary>
-        /// <param name="emailText">The email address to convert to spam-free format</param>
-        /// <returns></returns>
-        public static string CreateSpamFreeEmailLink(string emailText)
-        {
-            if(!String.IsNullOrEmpty(emailText))
-            {
-                string[] parts = emailText.Split(new char[] {'@'});
-                if(parts.Length == 2)
-                {
-                    StringBuilder sb = new StringBuilder();
-                    sb.Append("<script type='text/javascript'>");
-                    sb.Append("var m = '" + parts[0] + "';");
-                    sb.Append("var a = '" + parts[1] + "';");
-                    sb.Append("var l = '" + emailText + "';");
-                    sb.Append("document.write('<a href=\"mailto:' + m + '@' + a + '\">' + l + '</a>');");
-                    sb.Append("</script>");
-                    return sb.ToString();
-                }
-            }
-            return String.Empty;
-        }
 
         /// <summary>
         /// A simple utility to output Lorem Ipsum text to your page.

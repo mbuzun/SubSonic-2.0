@@ -168,19 +168,7 @@ namespace SubSonic.Tests.MsAccess
             Assert.IsTrue(count > 0);
         }
 
-        [Test]
-        public void Acc_SP_Can_Execute_JSON_Result() {
-
-
-            string result = Northwind.SPs.TenMostExpensiveProducts().GetDataSet().GetXml();
-            XmlDocument xdoc = new XmlDocument();
-            xdoc.LoadXml(result);
-            string json=SubSonic.Parser.XmlToJSONParser.XmlToJSON(xdoc);
-
-
-            Assert.IsTrue(json.Length > 0);
-
-        }
+ 
 
     }
 }

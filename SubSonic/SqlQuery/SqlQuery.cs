@@ -20,7 +20,6 @@ using System.Reflection;
 using System.Text;
 using System.Transactions;
 using System.Xml;
-using SubSonic.Parser;
 using SubSonic.Utilities;
 
 namespace SubSonic
@@ -1362,28 +1361,6 @@ namespace SubSonic
             return xml;
         }
 
-        /// <summary>
-        /// Executes a query and returns the results as JSON
-        /// </summary>
-        /// <param name="resultSetName">The name of the Result set</param>
-        /// <param name="itemName">Name of the item.</param>
-        /// <returns></returns>
-        public string ExecuteJSON(string resultSetName, string itemName)
-        {
-            //pull a dataset
-            string xml = ExecuteXML(resultSetName, itemName);
-
-            XmlDocument xdoc = new XmlDocument();
-            xdoc.LoadXml(xml);
-
-            //parse to JSON
-            string json = XmlToJSONParser.XmlToJSON(xdoc);
-
-            //clean up and prep for delivery
-            json = json.Replace(@"\", @"\\");
-
-            return json;
-        }
 
         /// <summary>
         /// Executes the data set.

@@ -65,43 +65,7 @@ namespace <%=provider.GeneratedNamespace%>
 	{	   
 		public <%=className%>Collection() {}
         
-        /// <summary>
-		/// Filters an existing collection based on the set criteria. This is an in-memory filter
-		/// Thanks to developingchris for this!
-        /// </summary>
-        /// <returns><%=className%>Collection</returns>
-		public <%=className%>Collection Filter()
-        {
-            for (int i = this.Count - 1; i > -1; i--)
-            {
-                <%=className%> o = this[i];
-                foreach (SubSonic.Where w in this.wheres)
-                {
-                    bool remove = false;
-                    System.Reflection.PropertyInfo pi = o.GetType().GetProperty(w.ColumnName);
-                    if (pi.CanRead)
-                    {
-                        object val = pi.GetValue(o, null);
-                        switch (w.Comparison)
-                        {
-                            case SubSonic.Comparison.Equals:
-                                if (!val.Equals(w.ParameterValue))
-                                {
-                                    remove = true;
-                                }
-                                break;
-                        }
-                    }
 
-                    if (remove)
-                    {
-                        this.Remove(o);
-                        break;
-                    }
-                }
-            }
-            return this;
-        }
 		
 		
 	}

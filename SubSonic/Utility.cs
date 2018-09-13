@@ -26,7 +26,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SubSonic.Sugar;
-using Calendar=System.Web.UI.WebControls.Calendar;
+
 
 namespace SubSonic.Utilities
 {
@@ -860,70 +860,7 @@ namespace SubSonic.Utilities
             }
         }
 
-        /// <summary>
-        /// Gets the default value for System.Web.UI.Control based on Control type and underly DbType of the
-        /// mapped TableSchema.TableColumn
-        /// </summary>
-        /// <param name="col">The TableColumn mapped to the control</param>
-        /// <param name="ctrl">The control that is being evaluated</param>
-        /// <param name="isAdd">if set to <c>true</c> returns the value for a new object; otherwise the value for an updated one.</param>
-        /// <param name="returnDBNull">If set to <c>true</c> will return DbNull values; otherwise return null</param>
-        /// <returns></returns>
-        public static object GetDefaultControlValue(TableSchema.TableColumn col, Control ctrl, bool isAdd, bool returnDBNull)
-        {
-            object oVal = null;
-            string colName = col.ColumnName;
-
-            if(IsMatch(colName, ReservedColumnName.MODIFIED_BY))
-                oVal = HttpContext.Current.User.Identity.Name;
-            else if(IsMatch(colName, ReservedColumnName.MODIFIED_ON))
-                oVal = col.Table.Provider.Now;
-            else if(IsMatch(colName, ReservedColumnName.CREATED_BY))
-            {
-                if(isAdd)
-                    oVal = HttpContext.Current.User.Identity.Name;
-                else if(ctrl != null)
-                    oVal = ((Label)ctrl).Text;
-            }
-            else if(IsMatch(colName, ReservedColumnName.CREATED_ON))
-            {
-                if(isAdd)
-                    oVal = col.Table.Provider.Now;
-                else if(ctrl != null)
-                    oVal = ((Label)ctrl).Text;
-            }
-            else if(ctrl is TextBox)
-                oVal = ((TextBox)ctrl).Text;
-            else if(ctrl is CheckBox)
-                oVal = ((CheckBox)ctrl).Checked;
-            else if(ctrl is DropDownList)
-                oVal = ((DropDownList)ctrl).SelectedValue;
-            else if(ctrl is Calendar)
-            {
-                Calendar cal = (Calendar)ctrl;
-                if(cal.SelectedDate > DateTime.MinValue)
-                    oVal = ((Calendar)ctrl).SelectedDate;
-                else
-                {
-                    if(!col.IsNullable)
-                        oVal = col.Table.Provider.Now;
-                }
-            }
-            else if(ctrl is Label)
-                oVal = ((Label)ctrl).Text;
-
-            if(!col.IsPrimaryKey && !col.AutoIncrement)
-            {
-                if(oVal == null || oVal.ToString().Length == 0)
-                {
-                    if(col.IsNullable)
-                        oVal = returnDBNull ? DBNull.Value : null;
-                    else
-                        oVal = GetDefaultSetting(col);
-                }
-            }
-            return oVal;
-        }
+ 
 
         /// <summary>
         /// Returns an Object with the specified Type and whose value is equivalent to the specified object.
@@ -1921,62 +1858,6 @@ namespace SubSonic.Utilities
         #endregion
 
 
-        #region Obsolete
-
-        [Obsolete("Obsolete and marked for removal. Kept for compatibility with 2.0.1 Starter Site. Update references to use Sugar.Files.GetFileText()")]
-        public static string GetFileText(string absolutePath)
-        {
-            return Files.GetFileText(absolutePath);
-        }
-
-        [Obsolete("Obsolete and marked for removal.")]
-        public static string ToggleHtmlBR(string text, bool isOn)
-        {
-            string outS;
-
-            if(isOn)
-                outS = text.Replace(Environment.NewLine, "<br />");
-            else
-            {
-                // TODO: do this with via regex
-                //
-                outS = text.Replace("<br />", Environment.NewLine);
-                outS = outS.Replace("<br>", Environment.NewLine);
-                outS = outS.Replace("<br >", Environment.NewLine);
-            }
-
-            return outS;
-        }
-
-        [Obsolete("Obsolete and marked for removal.")]
-        public static string FormatDate(DateTime theDate)
-        {
-            return FormatDate(theDate, false, null);
-        }
-
-        [Obsolete("Obsolete and marked for removal.")]
-        public static string FormatDate(DateTime theDate, bool showTime)
-        {
-            return FormatDate(theDate, showTime, null);
-        }
-
-        [Obsolete("Obsolete and marked for removal.")]
-        public static string FormatDate(DateTime theDate, bool showTime, string pattern)
-        {
-            const string defaultDatePattern = "MMMM d, yyyy";
-            const string defaultTimePattern = "hh:mm tt";
-
-            if(pattern == null)
-            {
-                if(showTime)
-                    pattern = defaultDatePattern + " " + defaultTimePattern;
-                else
-                    pattern = defaultDatePattern;
-            }
-
-            return theDate.ToString(pattern);
-        }
-
-        #endregion
+     
     }
 }
