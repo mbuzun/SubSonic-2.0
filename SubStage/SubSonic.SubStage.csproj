@@ -86,16 +86,13 @@
     </Compile>
     <Compile Include="MasterStore.cs">
       <DependentUpon>MasterStore.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="MasterStore.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>MasterStore.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ModelManager.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ModelManager.cs" />
     <Compile Include="StageNode.cs" />
     <Compile Include="SubStageForm.cs">
       <SubType>Form</SubType>

@@ -983,63 +983,63 @@ namespace SubSonic.SubCommander
         /// </summary>
         private static void GenerateODSControllers()
         {
-            SetProvider();
+            //SetProvider();
 
-            language = CodeLanguageFactory.GetByShortName(GetArg("lang"));
+            //language = CodeLanguageFactory.GetByShortName(GetArg("lang"));
 
-            if(DataService.Providers.Count == 0)
-                Console.WriteLine("There's a problem with the providers - none were loaded and no exceptions where thrown.");
-            else
-            {
-                //loop the providers, and if there's more than one, output to their own folder
-                //for tidiness
-                foreach(DataProvider provider in DataService.Providers)
-                {
-                    if(provider.TableBaseClass == "ActiveRecord")
-                    {
-                        //get the table list
-                        string[] tables = DataService.GetTableNames(provider.Name);
-                        string message = "Generating ODS Controllers for " + provider.Name + " (" + tables.Length + " total)";
+            //if(DataService.Providers.Count == 0)
+            //    Console.WriteLine("There's a problem with the providers - none were loaded and no exceptions where thrown.");
+            //else
+            //{
+            //    //loop the providers, and if there's more than one, output to their own folder
+            //    //for tidiness
+            //    foreach(DataProvider provider in DataService.Providers)
+            //    {
+            //        if(provider.TableBaseClass == "ActiveRecord")
+            //        {
+            //            //get the table list
+            //            string[] tables = DataService.GetTableNames(provider.Name);
+            //            string message = "Generating ODS Controllers for " + provider.Name + " (" + tables.Length + " total)";
 
-                        if(tables.Length > 200)
-                        {
-                            message +=
-                                " that's a serious amount of tables to generate. But we can handle it. You just will need to be patient and go get some coffee while we do this thang...";
-                        }
-                        else if(tables.Length > 100)
-                            message += " that's a lot of tables. This could take a few minutes...";
-                        else if(tables.Length > 50)
-                            message += " - moderate amount of tables... this could take 30 seconds or so...";
+            //            if(tables.Length > 200)
+            //            {
+            //                message +=
+            //                    " that's a serious amount of tables to generate. But we can handle it. You just will need to be patient and go get some coffee while we do this thang...";
+            //            }
+            //            else if(tables.Length > 100)
+            //                message += " that's a lot of tables. This could take a few minutes...";
+            //            else if(tables.Length > 50)
+            //                message += " - moderate amount of tables... this could take 30 seconds or so...";
 
-                        Console.WriteLine(message);
-                        string baseDir = GetOutSubDir(provider);
+            //            Console.WriteLine(message);
+            //            string baseDir = GetOutSubDir(provider);
                         
-                        if(!Directory.Exists(baseDir))
-                            Directory.CreateDirectory(baseDir);
+            //            if(!Directory.Exists(baseDir))
+            //                Directory.CreateDirectory(baseDir);
                    
-                        foreach(string tbl in tables)
-                        {
-                            if(IsInList(tbl) && !IsExcluded(tbl) && CodeService.ShouldGenerate(tbl, provider.Name))
-                            {
-                                TableSchema.Table tableSchema = DataService.GetSchema(tbl, provider.Name, TableType.Table);
-                                string className = tableSchema.ClassName;
-                                TurboTemplate tt = CodeService.BuildODSTemplate(tbl, language, provider);
+            //            foreach(string tbl in tables)
+            //            {
+            //                if(IsInList(tbl) && !IsExcluded(tbl) && CodeService.ShouldGenerate(tbl, provider.Name))
+            //                {
+            //                    TableSchema.Table tableSchema = DataService.GetSchema(tbl, provider.Name, TableType.Table);
+            //                    string className = tableSchema.ClassName;
+            //                    TurboTemplate tt = CodeService.BuildODSTemplate(tbl, language, provider);
 
-                                string additionalPath = GetAdditionalPath(tableSchema, GenerationType.Controllers);
-                                string outDir = Path.Combine(baseDir, additionalPath);
-                                EnsureDirectoryExists(outDir);
+            //                    string additionalPath = GetAdditionalPath(tableSchema, GenerationType.Controllers);
+            //                    string outDir = Path.Combine(baseDir, additionalPath);
+            //                    EnsureDirectoryExists(outDir);
 
-                                if(tt != null)
-                                {
-                                    tt.OutputPath = Path.Combine(outDir, className + "Controller" + language.FileExtension);
-                                    turboCompiler.AddTemplate(tt);
-                                }
-                            }
-                        }
-                    }
-                }
-                Console.WriteLine("Finished");
-            }
+            //                    if(tt != null)
+            //                    {
+            //                        tt.OutputPath = Path.Combine(outDir, className + "Controller" + language.FileExtension);
+            //                        turboCompiler.AddTemplate(tt);
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //    Console.WriteLine("Finished");
+            //}
         }
 
         private static void EnsureDirectoryExists(string outDir)

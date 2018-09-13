@@ -38,3 +38,5 @@ TestResults
 # Exclude ALL DLLs? (
 # *.dll
  
+.vs/
+packages/
