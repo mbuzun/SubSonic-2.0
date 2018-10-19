@@ -227,15 +227,6 @@
     <EmbeddedResource Include="CodeGeneration\Templates\CS_ViewTemplate.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="CodeGeneration\Templates\CS_DynamicScaffold.aspx">
-      <SubType>ASPXCodeBehind</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CodeGeneration\Templates\CS_GeneratedScaffoldCodeBehind.aspx">
-      <SubType>ASPXCodeBehind</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CodeGeneration\Templates\CS_GeneratedScaffoldMarkup.aspx">
-      <SubType>ASPXCodeBehind</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="CodeGeneration\Templates\CS_ODSController.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </EmbeddedResource>

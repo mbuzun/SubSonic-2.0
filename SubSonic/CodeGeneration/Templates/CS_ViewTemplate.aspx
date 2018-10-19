@@ -22,11 +22,7 @@ namespace <%=nSpace %>
     /// Strongly-typed collection for the <%=className%> class.
     /// </summary>
 
-    [Serializable]
-    public partial class <%=className%>Collection : ReadOnlyList[<]<%= className %>, <%=className%>Collection[>]
-    {        
-        public <%=className%>Collection() {}
-    }
+
 
     /// <summary>
     /// This is  Read-only wrapper class for the <%=viewName%> view.
